@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 import Header from './index'
 import {InputBlurAction,InputFocusAction,getList,searchMouseInAction,searchMouseLeaveAction,changeItemAction} from './store/actionCreator'
+import {logoutAction} from '../../pages/login/store/actionCreator'
 
 function state(state) {
     return {foused:state.getIn(['headerReducer','foused']),
@@ -8,6 +9,7 @@ function state(state) {
             mouseIn:state.getIn(['headerReducer','mouseIn']),
             page:state.getIn(['headerReducer','page']),
             totalPage:state.getIn(['headerReducer','totalPage']),
+            loginStatus: state.getIn(['loginReducer','loginStatus'])
     // return {foused:state.get('headerReducer').get('foused')} ;//因为将reducer拆开了，所以多了数据多了一层，这里要写state.headerReducer，而不是state
 }
 }
@@ -44,6 +46,9 @@ function methods(dispatch) {
             spin.style.transform = `rotate(${originAngle+360}deg`
             const action = changeItemAction(page,totalPage)
             dispatch(action)
+        },
+        logout:() => {
+            dispatch(logoutAction())
         }
   }
 }

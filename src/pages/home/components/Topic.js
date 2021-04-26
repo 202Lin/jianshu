@@ -10,13 +10,13 @@ import {TopicItem,TopicWrapper} from '../styles'
                 {
                     this.props.list.map(item => {
                         return (                
-                            <TopicItem key={item.get('id')}>
+                            <TopicItem key={item.id}>
                                 <img
                                     className="topic-pic"
-                                    src={item.get('url')} 
+                                    src={item.url} 
                                     alt=""
                                     />
-                                {item.get('title')}
+                                {item.title}
                             </TopicItem> )
                     })               
                 }
@@ -28,6 +28,6 @@ import {TopicItem,TopicWrapper} from '../styles'
 
 
 const state = (state) => {
-    return {list:state.get('homeReducer').get('topicList')}
+    return {list:state.get('homeReducer').topicList}
 }
 export default connect(state,null)(Topic)

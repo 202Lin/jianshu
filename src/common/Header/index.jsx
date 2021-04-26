@@ -14,6 +14,7 @@ import {HeaderWriper,
        SearchInfoList,
     } from './styles'
 import { CSSTransition } from 'react-transition-group';
+import {Link} from 'react-router-dom'
 
 export default class Header extends Component{
      getListArea = () => {
@@ -51,10 +52,10 @@ export default class Header extends Component{
         }
     }
     render(){
-        const {foused,list,handleInputFocus,handleInputBlur}= this.props
+        const {foused,list,handleInputFocus,handleInputBlur,loginStatus}= this.props
         return(
             <HeaderWriper>
-                <Logo/>
+                <Link to="/"><Logo/></Link>
                 <Nav>
                     <NavItem className="left">首页</NavItem>
                     <NavItem className="left">下载App</NavItem>
@@ -76,13 +77,15 @@ export default class Header extends Component{
                     <NavItem className="right">
                     <span className="iconfont">&#xe636;</span>
                     </NavItem>
-                    <NavItem className="right">登录</NavItem>
+                    {loginStatus?<Link to="/login"><NavItem className="right">登录</NavItem></Link>:<Link to="/login"><NavItem onClick={this.props.logout} className="right">退出</NavItem></Link>}
                 </Nav>
                 <Addition>
-                    <Button className="writting">
-                    <span className="iconfont">&#xe67e;</span>
-                        写文章
+                    <Link to={loginStatus?"/login":"/writer"}>
+                        <Button className="writting">
+                        <span className="iconfont">&#xe67e;</span>
+                            写文章
                         </Button>
+                    </Link>
                     <Button className="red">注册</Button>
                 </Addition>
             </HeaderWriper>

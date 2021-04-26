@@ -6,13 +6,13 @@ import {RecommendWrapper,RecommendItem} from '../styles'
     render() {
         return (
             <RecommendWrapper>
-                {this.props.list.map((item) => <RecommendItem key={item.get('id')} imgUrl={item.get('imgUrl')}/>)}
+                {this.props.list.map((item) => <RecommendItem key={item.id} imgUrl={item.imgUrl}/>)}
             </RecommendWrapper>
         )
     }
 }
 
 const mapState = (state) => {
-    return {list:state.get('homeReducer').get('recommendList')}
+    return {list:state.get('homeReducer').recommendList}
 }
 export default connect(mapState,null)(Recommend)

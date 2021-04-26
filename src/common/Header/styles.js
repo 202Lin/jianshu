@@ -7,9 +7,7 @@ export const HeaderWriper = styled.div`
     border-bottom:1px solid #f0f0f0;
 `;
 // 通过attrs({可以给组件标签写属性})
-export const Logo = styled.a.attrs({
-    href:'/'
-})`
+export const Logo = styled.div`
     position:absolute;
     top:0;
     left:0;
@@ -47,6 +45,7 @@ export const NavItem = styled.div`
 `;
 export const SearchWrapper = styled.div`
   position:relative;
+  z-index:1;
  // background:#eee;
 
   float:left;

@@ -1,29 +1,44 @@
 import React, { Component } from 'react'
+
 import {connect} from 'react-redux'
-import {ListInfo,ListItem} from '../styles'
+import {ListInfo,ListItem,LoadMore} from '../styles'
+import {getMoreData} from '../srore/actionActator'
+import {Link} from 'react-router-dom'
 
  class List extends Component {
    
     render() {
-        const {list} = this.props
+        const {list,getMoreList} = this.props
         return (
-            list.map((item) => {
-                return (       
-                <ListItem>
-                    <img className="pic" src={item.get('picUrl')} alt=""/>
-                    <ListInfo>
-                        <h3 className="title">{item.get('title')}</h3>
-                        <p className="desc">{item.get('desc')}</p>
-                    </ListInfo>
-                </ListItem>)
-            })
+            <div>
+                {
+                    list.map((item) => {
+                        // 要使用js表达式的话，要在外层加一个大括号哦
+                        return (<Link key={item.id} to={`/detail/${item.id}`}>
+                                    <ListItem key={item.id}>
+                                        <img className="pic" src={item.picUrl} alt=""/>
+                                        <ListInfo>
+                                            <h3 className="title">{item.title}</h3>
+                                            <p className="desc">{item.desc}</p>
+                                        </ListInfo>
+                                    </ListItem>
+                        </Link>)
+                    })
+                }
+                <LoadMore onClick={getMoreList}>加载更多</LoadMore>
+            </div>
         )
 }
 }
 
 const state = (state) => {
     return {
-        list:state.get('homeReducer').get('listData')
+        list:state.get('homeReducer').listData
     }
 }
-export default connect(state,null)(List)
+const useState = (dispatch) => ({
+    getMoreList:() => {
+        dispatch(getMoreData())
+    }
+})
+export default connect(state,useState)(List)
